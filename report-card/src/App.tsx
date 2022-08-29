@@ -3,34 +3,57 @@ import './App.css';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc } from 'firebase/firestore'
 import { firebaseConfig } from './Firebase';
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { BrowserRouter, Route, Routes, Link, Navigate, useNavigate } from 'react-router-dom';
+import Home from './Home';
 
 
 const app = initializeApp(firebaseConfig);
+// database from firebase
 const db = getFirestore(app);
+// authorization with firebase
 const auth = getAuth();
 
+
+// app function
 function App() {
   // get username
-  const [newUser, setNewUser] = useState('');
+  const [email, setEmail] = useState('');
   // get email
   const [password, setPassword] = useState('');
 
+  const [loginFlow, setLoginFlow] = useState(true);
+  // Route
+  const navigate = useNavigate()
+
   // need to create a aysnc await
-  // save email to firebase
-  const userInfo = async () => {
+  const createUser = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, newUser, password)
-        .then((userCrendtials => {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(async (userCrendtials) => {
+          console.log(email, password)
           const user = userCrendtials.user
-          console.log(user)
-          if (newUser.length > 0) {
-            addDoc(collection(db, 'users'), {
-              id: user.uid,
-              user: user.email,
-            })
-          }
-        }))
+          // save email to firebase
+          await addDoc(collection(db, 'users'), {
+            id: user.uid,
+            user: user.email,
+          }).catch(err => {
+            console.log(err)
+          })
+          console.log('made it here')
+          navigate('/home')
+        })
+    } catch (err) {
+      console.log(err)
+      alert(err)
+    }
+  }
+
+  const signIn = async () => {
+    try {
+      console.log(email, password)
+      await signInWithEmailAndPassword(auth, email, password)
+      navigate('/home')
     } catch (err) {
       console.log(err)
       alert(err)
@@ -44,8 +67,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className='box'>
-        <p className='header'>Welcome to the PAGE of NOTHINGNESSSSS</p>
+      <form className='box'>
+      <p className='header'>Welcome to the PAGE of NOTHINGNESSSSS</p>
         {/* userName input */}
         <input
           className='user'
@@ -53,10 +76,9 @@ function App() {
           name='user'
           placeholder='Enter UserName'
           onChange={(e) => {
-            setNewUser(e.target.value)
-            console.log(newUser)
-          }
-          }
+            setEmail(e.target.value)
+            console.log(email)
+          }}
         />
         {/* password */}
         <input
@@ -67,22 +89,34 @@ function App() {
             setPassword(e.target.value)
           }
         />
+        {/* Have to route pages to main page */}
         {/* signup button */}
-        <input
-          type='submit'
-          value='Sign-up'
-          className='btn pagelink'
-          placeholder='signup'
-          onClick={() => userInfo()}
-        />
+        {!loginFlow && (
+          <button
+            disabled={!email || !password}
+            value='Sign-up'
+            className='btn pagelink'
+            placeholder='signup'
+            onClick={
+              createUser
+            }
+          >
+            Sign-Up
+          </button>
+        )}
         {/* signin button */}
-        <input
-          className='btn singin'
-          type='submit'
-          value='Signin'
-        // onClick={() => go to signin page }
-        />
-      </div>
+        {loginFlow && (
+          <button
+            className='btn singin'
+            onClick={() => signIn()}
+          >
+            Sign-In
+          </button>
+        )}
+        <span onClick={() => setLoginFlow(!loginFlow)}>
+          {loginFlow ? 'Create new Acount' : 'Already have an account ?'}
+        </span>
+      </form>
     </div>
   );
 }
@@ -90,5 +124,3 @@ function App() {
 export default App;
 
 
-
-//auth.CreateUserWithEmailAndPasswordAsync(email, password)

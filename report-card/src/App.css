@@ -2,7 +2,7 @@ body {
     justify-content: center;
     text-align: center;
     align-items: center;
-    margin-top: 30vh;
+    margin-top: 10vh;
     margin-left: 40%;
 }
 
@@ -12,7 +12,7 @@ body {
     justify-content: space-around;
     padding: 15px;
     border: 2px solid grey;
-    border-radius: 10px;
+    border-radius: 8px;
     height: 300px;
     width: 250px;
     box-shadow: 10px 10px 8px #888888;
@@ -21,7 +21,7 @@ body {
 input {
     height: 30px;
     text-align: center;
-    border-radius: 3px;
+    border-radius: 8px;
     border: 2px solid grey;
 }
 
