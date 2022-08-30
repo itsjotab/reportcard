@@ -58,9 +58,6 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    console.log('here we are')
-  }, [])
 
 
   return (
