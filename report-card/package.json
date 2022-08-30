@@ -1,6 +1,6 @@
 {
   "name": "report-card",
-  "homepage": "https://www.itsjotab.github.io/reportcard",
+  "homepage": "https://itsjotab.github.io/reportcard",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
