@@ -25,7 +25,12 @@ input {
     border: 2px solid grey;
 }
 
+button {
+    height: 30px;
+    width: 250px;
+}
+
 .btn {
-    background-color: aquamarine;
+    background-color: rgb(203, 172, 20);
     border-radius: 5px;
 }
