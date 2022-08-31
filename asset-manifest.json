@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/reportcard/static/css/main.efa7cdfa.css",
+    "main.js": "/reportcard/static/js/main.2320d11a.js",
+    "static/js/787.1cb0cbb0.chunk.js": "/reportcard/static/js/787.1cb0cbb0.chunk.js",
+    "index.html": "/reportcard/index.html",
+    "main.efa7cdfa.css.map": "/reportcard/static/css/main.efa7cdfa.css.map",
+    "main.2320d11a.js.map": "/reportcard/static/js/main.2320d11a.js.map",
+    "787.1cb0cbb0.chunk.js.map": "/reportcard/static/js/787.1cb0cbb0.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.efa7cdfa.css",
+    "static/js/main.2320d11a.js"
+  ]
+}
